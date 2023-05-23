@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\..\\GitHub\\SlimeVR-Tracker-ESP"
+		},
+		{
+			"name": "BNO085Test",
+			"path": ".."
+		},
+		{
+			"name": "i2c_sacn",
+			"path": "..\\..\\i2c_sacn"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.cs": "csharp",
+			"array": "cpp",
+			"deque": "cpp",
+			"list": "cpp",
+			"string": "cpp",
+			"unordered_map": "cpp",
+			"vector": "cpp",
+			"string_view": "cpp",
+			"initializer_list": "cpp",
+			"ranges": "cpp"
+		}
+	}
+}
