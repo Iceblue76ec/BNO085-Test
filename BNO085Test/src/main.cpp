@@ -60,8 +60,7 @@ void setup()
   Serial.println();
 
   // 在这里修改你板子对应的的SDA,SCL引脚
-  // Wire.begin(4, 5); // 自用
-  //  Wire.begin(D2, D1); // 赤灵用的
+  Wire.begin(D2, D1); // 赤灵用的，Ekizi，自用
   // Wire.begin(D2, D3); // 磷桦PCB
 
   while (1)
@@ -80,7 +79,7 @@ void setup()
     {
       Serial.printf("[ERR!]  BNO08X at 0X4A/0X4B initialization failure.\n");
       Serial.printf("[INFO]  Wait 10 seconds to try again.\n");
-      Serial.printf("[INFO]  启动失败，请手动断电重启085\n");
+      Serial.printf("[INFO]  启动失败,请手动断电重启085\n");
       delay(10000);
       // ESP.restart();没啥效果
     }
@@ -99,6 +98,8 @@ void setup()
 
   myIMU.enableRotationVector(50); // Send data update every 50ms
   Serial.printf("[INFO]  enable RotationVector\n\n");
+
+  myIMU.enableDebugging();//
 
   myIMU.calibrateAll();
 
@@ -160,8 +161,15 @@ void loop()
       }
 
       myIMU.endCalibration(); // Turns off all calibration
-      Serial.println("关闭自动校准");
+      Serial.println("关闭全部自动校准,保留磁力计自动校准");
       delay(1000);
+      myIMU.calibrateMagnetometer();
+      /**
+       * 加速度计、陀螺仪校准完之后不会发生很大变化，所以关闭自动校准
+       * 关闭加速度计自动校准可以避免原地跺脚升天的问题
+       * 磁力计关闭自动校准后对环境的适应能力很差，所以保留
+       * by-iceblue0xff
+      **/ 
       // In general, calibration should be left on at all times. The BNO080
       // auto-calibrates and auto-records cal data roughly every 5 minutes
     }
